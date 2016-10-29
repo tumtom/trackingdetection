@@ -1,9 +1,10 @@
-%config
+%kernel
 H = [
-    [0,0,0];
-    [0,1,0];
-    [0,0,0]
+    [0,-1,0];
+    [-1,5,-1];
+    [0,-1,0]
     ];
+%image path
 image_path = 'lena.gif';
 
 
@@ -13,15 +14,7 @@ image_path = 'lena.gif';
 [I_raw,I_raw_cm] = imread(image_path);
 
 %preparing the image
-[w,h] = size(I_raw);
-I = zeros(m+w,n+h);
-
-%copy old image in the middle
-image_start_row = ceil(m/2);
-image_start_col = ceil(n/2);
-image_end_row = image_start_row+w-1;
-image_end_col = image_start_col+h-1;
-I(image_start_row:image_end_row,image_start_col:image_end_col) = I_raw(1:w,1:h);
+[I, image_start_row, image_end_row, image_start_col, image_end_col] = extend_image_borders(I_raw, H, 'border_extend');
 
 %create new image
 R = zeros(size(I));
