@@ -1,8 +1,10 @@
 %kernel
 H = [
-    [0,-1,0];
-    [-1,5,-1];
-    [0,-1,0]
+    [0,0,0];
+    [0,0,0];
+    [0,1,0];
+    [0,0,0];
+    [0,0,0]
     ];
 %image path
 image_path = 'lena.gif';
@@ -14,7 +16,8 @@ image_path = 'lena.gif';
 [I_raw,I_raw_cm] = imread(image_path);
 
 %preparing the image
-[I, image_start_row, image_end_row, image_start_col, image_end_col] = extend_image_borders(I_raw, H, 'border_extend');
+%needs extend_image_borders.m in same folder
+[I, image_start_row, image_end_row, image_start_col, image_end_col] = extend_image_borders(I_raw, H, 'border_mirror');
 
 %create new image
 R = zeros(size(I));
