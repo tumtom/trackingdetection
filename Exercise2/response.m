@@ -18,7 +18,7 @@ if isempty(D_y)
 end
 
 G_Kernel_sigma_d = fspecial('gaussian',max(1,fix(3*sigma_d)),sigma_d);
-%G_Kernel_sigma_i = fspecial('gaussian',max(1,fix(3*sigma_i)),sigma_i);
+G_Kernel_sigma_i = fspecial('gaussian',max(1,fix(3*sigma_i)),sigma_i);
 
 I_x = conv2(I,D_x,'same');
 I_y = conv2(I,D_y,'same');
@@ -27,7 +27,13 @@ L_x2 = conv2(I_x.^2,G_Kernel_sigma_d,'same');
 L_y2 = conv2(I_y.^2,G_Kernel_sigma_d,'same');
 L_xy = conv2(I_y.*I_y,G_Kernel_sigma_d,'same');
 
-R = (L_x2.*L_y2 - (L_xy.^2)) - k * ((L_x2 + L_y2).^2);
+M_1 = (L_x2.*L_y2 - (L_xy.^2));
+M_2 = ((L_x2 + L_y2).^2);
+
+M_1 = conv2(M_1,(sigma_d)^2*G_Kernel_sigma_i,'same');
+M_2 = conv2(M_2,(sigma_d)^2*G_Kernel_sigma_i,'same');
+
+R = M_1 - k * M_2;
 
 end
 
