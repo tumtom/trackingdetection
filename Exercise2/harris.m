@@ -1,18 +1,15 @@
-function [ R ] = harris( I, sigma_d, sigma_i, alpha, threshold )
+function [ r,c,R ] = harris( I, sigma_d, sigma_i, alpha, threshold )
 %UNTITLED6 Summary of this function goes here
 %   Detailed explanation goes here
-clear moment_matrix;
 
-[rows,cols] = size(I);
+R = response(I, sigma_d, sigma_i, alpha);
 
-C = zeros(0,3);
-R = size(I);
+R = matrix_rescale(R,-1000,1000);
 
-for r=1:rows
-    for c=1:cols
-        R(r,c) = response( I, r, c, sigma_d, sigma_i, alpha );
-    end
-end
+%filter
+V = (R>threshold).*R;
+%get coordinates for all filtered corners
+[r,c] = find(V);
 
 end
 
