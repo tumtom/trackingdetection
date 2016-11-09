@@ -6,9 +6,9 @@ R = response(I, sigma_d, sigma_i, alpha);
 
 R = matrix_rescale(R,-1000,1000);
 %find regional max
-V = imregionalmax(R) .* R;
+%V = imregionalmax(R) .* R;
 %filter
-V = (V>threshold).*V;
+V = (R>threshold).*R;
 %get coordinates for all filtered corners
 [r,c] = find(V);
 
