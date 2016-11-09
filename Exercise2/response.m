@@ -27,11 +27,15 @@ L_x2 = conv2(I_x.^2,G_Kernel_sigma_d,'same');
 L_y2 = conv2(I_y.^2,G_Kernel_sigma_d,'same');
 L_xy = conv2(I_y.*I_y,G_Kernel_sigma_d,'same');
 
+L_x2 = conv2(L_x2,(sigma_d)^2*G_Kernel_sigma_i,'same');
+L_y2 = conv2(L_y2,(sigma_d)^2*G_Kernel_sigma_i,'same');
+L_xy = conv2(L_xy,(sigma_d)^2*G_Kernel_sigma_i,'same');
+
 M_1 = (L_x2.*L_y2 - (L_xy.^2));
 M_2 = ((L_x2 + L_y2).^2);
 
-M_1 = conv2(M_1,(sigma_d)^2*G_Kernel_sigma_i,'same');
-M_2 = conv2(M_2,(sigma_d)^2*G_Kernel_sigma_i,'same');
+%M_1 = conv2(M_1,(sigma_d)^2*G_Kernel_sigma_i,'same');
+%M_2 = conv2(M_2,(sigma_d)^2*G_Kernel_sigma_i,'same');
 
 R = M_1 - k * M_2;
 
