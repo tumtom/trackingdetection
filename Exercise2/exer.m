@@ -1,61 +1,63 @@
+%read images
 I_check = double(imread('checkerboard_tunnel.png'));
 I_house = imread('house.png');
-I = I_check;
+I_test = imread('test.png');
+I_sample = rgb2gray(imread('sample2.jpg'));
 
-maxLevel = 3;
+%parameters for checkerboard_tunnel
+Res1 = harris_laplace(I_check, 3, 1.5, 1.2, 0.06, 300);
 
-R_levels = {};
+figure();
+imshow(I_check);
+hold on;
+scatter(Res1(:,2), Res1(:,1), 20);
 
-for level=0:maxLevel
-    sigma_init = 1.5;
-    sigma_scale = 1.2;
-    sigma_i = sigma_scale^level * sigma_init;
-    sigma_d = sigma_i*0.7;
+%parameters for test
+Res2 = harris_laplace(I_test, 7, 1.5, 1.2, 0.02, 0);
 
-    alpha = 0.06;
-    threshold = 500;
+figure();
+imshow(I_test);
+hold on;
+scatter(Res2(:,2), Res2(:,1), 20);
 
-    [r,c,R] = harris(I, sigma_d, sigma_i, alpha, threshold);
-    R_levels{level+1}=[r,c];
-    
-    subplot(ceil(sqrt(maxLevel+1)),ceil(sqrt(maxLevel)),level+1);
-    imshow(I);
-    hold on;
-    scatter(r,c,'r');
-    hold off;
-    t = sprintf('level: %d, sigma_d:%f, sigma_i:%f',level,sigma_d,sigma_i);
-    title(t);
-end
+%parameters for house
+Res3 = harris_laplace(I_house, 7, 3, 1.2, 0.04, 20);
 
-min_occurance = 2;
-Result = [];
-R_temp = R_levels{:};
-unique_pairs = unique(R_temp,'rows');
-for i=1:size(unique_pairs,1)
-    r=unique_pairs(i,1);
-    c=unique_pairs(i,2);
-    max=-1;
-    sigma_max=0;
-    occurance = 0;
-    for level=0:maxLevel
-        a = ismember([r,c],R_levels{level+1});
-        if (a(1) && a(2))
-            occurance = occurance + 1;
-            sigma_init = 1;
-            sigma_scale = 1.4;
-            sigma_i = sigma_scale^level * sigma_init;
-            log = LoG(I,r,c,sigma_i);
-            if log > max
-                max=log;
-                sigma_max=sigma_i;
-            end
-        end
-    end
-    if occurance >= min_occurance
-        Result = [Result;[r,c,max,sigma_max]];
-    end
-end
-            
-%corners = detectHarrisFeatures(I,'FilterSize',sigma_d*3);
-%plot(corners.selectStrongest(400));
-%hold off;
+figure();
+imshow(I_house);
+hold on;
+scatter(Res3(:,2), Res3(:,1), 20);
+
+%parameters for sample2
+Res4 = harris_laplace(I_sample, 3, 1.5, 1.2, 0.06, 510);
+
+figure();
+imshow(I_sample);
+hold on;
+scatter(Res4(:,2), Res4(:,1), 20);
+
+%harris-laplace for checkerboard_tunnel with n=0,5,17
+
+%n=0
+Res5 = harris_laplace(I_check, 0, 1.5, 1.2, 0.06, 300);
+subplot(ceil(sqrt(3)),ceil(sqrt(2)),1);
+imshow(I_check);
+hold on;
+scatter(Res5(:,2), Res5(:,1), 20);
+title('level 0');
+
+%n=5
+Res6 = harris_laplace(I_check, 5, 1.5, 1.2, 0.06, 300);
+subplot(ceil(sqrt(3)),ceil(sqrt(2)),2);
+imshow(I_check);
+hold on;
+scatter(Res6(:,2), Res6(:,1), 20);
+title('level 5');
+
+%n=17
+Res7 = harris_laplace(I_check, 17, 1.5, 1.2, 0.06, 300);
+subplot(ceil(sqrt(3)),ceil(sqrt(2)),3);
+imshow(I_check);
+hold on;
+scatter(Res7(:,2), Res7(:,1), 20);
+title('level 17');
