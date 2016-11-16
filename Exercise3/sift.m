@@ -7,8 +7,8 @@ figure(1) ; clf ;
 %                                                    Create image pair
 % --------------------------------------------------------------------
 
-Ia = imread('shell.jpg');
-Ib = imread('test_shell1_scaled.jpg');
+Ia = imread('pot.jpg');
+Ib = imread('test_pot2_scaled.jpg');
 
 
 % --------------------------------------------------------------------
@@ -17,9 +17,7 @@ Ib = imread('test_shell1_scaled.jpg');
 
 [fa,da] = vl_sift(im2single(rgb2gray(Ia))) ;
 [fb,db] = vl_sift(im2single(rgb2gray(Ib))) ;
-imshow(Ib_raw);
-hold on;
-vl_plotframe(fb(:,:)) ;
+
 
 [matches, scores] = vl_ubcmatch(da,db) ;
 
