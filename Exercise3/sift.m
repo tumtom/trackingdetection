@@ -3,7 +3,7 @@ function [] = sift( Ia, Ib, edge, peak)
 pfx = fullfile(vl_root,'figures','demo') ;
 randn('state',0) ;
 rand('state',0) ;
-<<<<<<< HEAD
+
 f = figure(1) ; 
 clf ;
 
@@ -17,7 +17,7 @@ vl_plotframe(fb(:,:)) ;
 %resultImagePath = '/home/katerina/myDocuments/Uni/TUM/Tracking&Detection/exercises/pot2_features.jpg';
 
 % Save output images
-saveas(f, resultImagePath, 'jpg');
+%saveas(f, resultImagePath, 'jpg');
 
 [matches, scores] = vl_ubcmatch(da,db) ;
 
