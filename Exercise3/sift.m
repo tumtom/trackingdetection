@@ -59,12 +59,12 @@ axis image off ;
 
 box = minBoundingBox(p_b');
 line(box(1,:),box(2,:),'LineWidth',2,'color','r');
-line(box(1,[1,4]),box(2,[1,4]),'LineWidth',2,'color','r');
+line(box(1,[1,4]),box(2,[1,4]),'LineWidth',2,'color','r'
+);
 
 box2 = minBoundingBox(p_a');
 line(box2(1,:),box2(2,:),'LineWidth',2,'color','r');
 line(box2(1,[1,4]),box2(2,[1,4]),'LineWidth',2,'color','r');
-
 % Output file path
 %resultImagePath = '/home/katerina/myDocuments/Uni/TUM/Tracking&Detection/exercises/pot2_sift.jpg';
 
