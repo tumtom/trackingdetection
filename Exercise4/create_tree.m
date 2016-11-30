@@ -32,3 +32,12 @@ for leaf=1:numberLeafes
     tree{numberNodes + leaf} = l;
 end
 
+I=imread('2007_000032.jpg');
+
+
+I_r = I(:,:,1);
+I_g = I(:,:,2);
+I_b = I(:,:,3);
+Int_r = integral_image(I_r);
+Int_g = integral_image(I_g);
+Int_b = integral_image(I_b);
