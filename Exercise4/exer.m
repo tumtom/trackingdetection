@@ -71,7 +71,7 @@ for x=1:I_rows
 end
 
 
-    function res = b(x, y, z_i, s )
+    function res = b(x, y, z_i, s )        
         if (z_i == 0)
             I_x = I_b;
         elseif (z_i == 1)
@@ -79,9 +79,19 @@ end
         else
             I_x = I_r;
         end
-
-        res = 1/(2*s+1)^2 * ( I_x(x+s, y+s) - I_x(x-s, y+s) - I_x(x+s, y-s) + I_x(x-s, y-s) );
+        D = I_x(h(x+s, y+s));
+        C =  I_x(h(x-s, y+s));
+        B = I_x(h(x+s, y-s));
+        A = I_x(h(x-s, y-s));
+        res = 1/(2*s+1)^2 * ( D - C - B + A );
 
     end
 
+    %limit image indizes to not access pixels outside of the integral image
+    function [x_limited,y_limited] = h(x,y)
+        x_limited = max(min(x,I_rows),1);
+        y_limited = max(min(y,I_cols),1);
+    end
+
 end
+
