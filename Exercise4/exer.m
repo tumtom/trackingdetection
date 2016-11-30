@@ -1,3 +1,4 @@
+function exer()
 
 I=imread('2007_000032.jpg');
 [I_rows,I_cols,I_colors] = size(I);
@@ -70,15 +71,17 @@ for x=1:I_rows
 end
 
 
-function res = b(x, y, z_i, s )
-    if (z_i == 0)
-        I_x = I_b;
-    elseif (z_i == 1)
-        I_x = I_g;
-    else
-        I_x = I_r;
-    end
+    function res = b(x, y, z_i, s )
+        if (z_i == 0)
+            I_x = I_b;
+        elseif (z_i == 1)
+            I_x = I_g;
+        else
+            I_x = I_r;
+        end
 
-    res = 1/(2*s+1)^2 * ( I_x(x+s, y+s) - I_x(x-s, y+s) - I_x(x+s, y-s) + I_x(x-s, y-s) );
+        res = 1/(2*s+1)^2 * ( I_x(x+s, y+s) - I_x(x-s, y+s) - I_x(x+s, y-s) + I_x(x-s, y-s) );
+
+    end
 
 end
