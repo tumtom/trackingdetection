@@ -1,11 +1,11 @@
+function [tree,numberNodes] = create_tree(filename)
 
-
-M = dlmread('trees/Tree0.txt',' ');
+M = dlmread(filename,' ');
 numberNodes = M(1,1);
 numberLeafes = size(M,1) - numberNodes - 2;
 NODES = M([2:(numberNodes+1)], :);
 LEAF = M([(numberNodes+3) : size(M,1)], 1:3);
-[rows, col] = size(NODES);
+[rows, cols] = size(NODES);
 tree = {};
 
 for node = 1:rows
@@ -32,12 +32,5 @@ for leaf=1:numberLeafes
     tree{numberNodes + leaf} = l;
 end
 
-I=imread('2007_000032.jpg');
+end
 
-
-I_r = I(:,:,1);
-I_g = I(:,:,2);
-I_b = I(:,:,3);
-Int_r = integral_image(I_r);
-Int_g = integral_image(I_g);
-Int_b = integral_image(I_b);
