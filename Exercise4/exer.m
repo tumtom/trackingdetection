@@ -25,15 +25,17 @@ numberNodes = zeros(1,maxTreeFiles+1);
 for t=1:maxTreeFiles
      [trees{t},numberNodes(t)] = create_tree (strcat(treesFilesPath,num2str(t-1),'.txt'));
 end
+%% 
 
 
 %for every pixel in the image x,y
 for x=1:I_rows
+    disp(x);
     for y=1:I_cols
         p_x = zeros(1,maxTreeFiles);
         p_y = zeros(1,maxTreeFiles);
         %for every tree that we have
-        for t=1:maxTreeFiles
+        for t=10:maxTreeFiles
             %access current tree via trees(t) and all index > numberNodes(t) are leafes
             tree = trees{t};
             tree_max_node = numberNodes(t); 
@@ -57,18 +59,22 @@ for x=1:I_rows
     %we went trough all trees. now calculate the mean of all votes
     Votes_p_x(x,y) = sum(p_x) / (maxTreeFiles);
     Votes_p_y(x,y) = sum(p_y) / (maxTreeFiles);
+    %disp([Votes_p_x(x,y),Votes_p_y(x,y)]);
     end
 end
 
 %now we can plot Votes_p_x and Votes_p_y ...
 
+%% 
 
 Heatmap = zeros(I_rows,I_cols);
 for x=1:I_rows
     for y=1:I_cols
-        Heatmap(floor(x+Votes_p_x(x,y)),floor(y+Votes_p_y(x,y))) = Heatmap(floor(x+Votes_p_x(x,y)),floor(y+Votes_p_y(x,y))) +1;
+        Heatmap(h(x+Votes_p_x(x,y),y+Votes_p_y(x,y))) = Heatmap(h(x+Votes_p_x(x,y),y+Votes_p_y(x,y))) +1;
     end
 end
+imshow(Heatmap);
+imagesc(Heatmap);
 
 
     function res = b(x, y, z_i, s )        
@@ -79,19 +85,28 @@ end
         else
             I_x = I_r;
         end
-        D = I_x(h(x+s, y+s));
-        C =  I_x(h(x-s, y+s));
-        B = I_x(h(x+s, y-s));
-        A = I_x(h(x-s, y-s));
+        D = I_x(h_y(y+s),h_x(x+s));
+        C =  I_x(h_y(y+s),h_x(x-s));
+        B = I_x(h_y(y-s),h_x(x+s));
+        A = I_x(h_y(y-s),h_x(x-s));
         res = 1/(2*s+1)^2 * ( D - C - B + A );
 
     end
 
-    %limit image indizes to not access pixels outside of the integral image
-    function [x_limited,y_limited] = h(x,y)
-        x_limited = max(min(x,I_rows),1);
-        y_limited = max(min(y,I_cols),1);
+    %is x, but are cols!
+    function x_limited=h_x(this_x) 
+        x_limited = max(min(this_x,I_cols),1);
     end
+
+    function y_limited=h_y(this_y)
+        y_limited = max(min(this_y,I_rows),1);
+    end
+
+    function [x_limited,y_limited] = h(this_x,this_y)
+        x_limited = max(min(floor(this_x),I_rows),1);
+        y_limited = max(min(floor(this_y),I_cols),1);
+    end
+
 
 end
 
