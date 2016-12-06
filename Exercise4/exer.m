@@ -46,7 +46,7 @@ for x=1:I_rows
                 n = tree{next_index};
                 box_compare = b(x+n.x_0,y+n.y_0,n.z_0,n.box_size) - b(x+n.x_1,y+n.y_1,n.z_1,n.box_size);
                 if (box_compare < n.threshold)
-                    next_index = n.left+1;    %go to the left child node
+                    next_index = con.left+1;    %go to the left child node
                 else
                     next_index = n.right+1;   %go to the right child node
                 end
