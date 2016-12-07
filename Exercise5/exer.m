@@ -18,3 +18,4 @@ M_s_h_norm = normalization(M_s_h);
 M_d_h_norm = normalization(M_d_h);
 
 %Find homography
+H  = homography( M_s_h_norm, M_d_h_norm);
