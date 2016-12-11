@@ -16,7 +16,9 @@ points(4,:) = round(fb(2,matches(2,:)));
 points = points';
 
 number_of_points_in_set = 5;
-threshold_distance = 1000;
-threshold_number_inliers = 20;
+threshold_distance = 200;
+threshold_number_inliers = 50;
 number_of_trials = 5;
 Cset = ransac(points,number_of_points_in_set,threshold_distance,threshold_number_inliers,number_of_trials);
+
+H = homography(Cset(:,1:2)',Cset(:,3:4));

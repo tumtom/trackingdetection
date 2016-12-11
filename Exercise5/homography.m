@@ -1,5 +1,8 @@
 function [ H ] = homography( M_s, M_d )
 
+     [M_s, J] = normalization(M_s);
+    [M_d, T] = normalization(M_d);
+
     [m, n] = size(M_s);
     A = zeros(n*2, 9);
     
@@ -40,6 +43,8 @@ function [ H ] = homography( M_s, M_d )
             H(row, col) = h((row-1)*3+col, 1);
         end
     end
+    
+    H = T^(-1)*H*J;
  
 end
 

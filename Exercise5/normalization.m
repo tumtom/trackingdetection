@@ -1,4 +1,4 @@
-function [M_norm] = normalization(M)
+function [M_norm, U] = normalization(M)
 
 % Translate origin to the center of mass
 	[c_x, c_y] = centerMass(M);
@@ -15,6 +15,7 @@ function [M_norm] = normalization(M)
 	S(2,2) = sqrt(2)/d;
 
 	M_norm = S*M_transl;
+    U = S*T;
 end
 
 
