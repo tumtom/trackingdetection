@@ -1,4 +1,5 @@
-I_0 = single(rgb2gray(imread('img_sequence/0000.png')));
+I_0_raw = imread('img_sequence/0000.png');
+I_0 = single(rgb2gray(I_0_raw));
 
 A = [472.3 0.64 329.0; 0 471.0 268.3; 0 0 1];
 
