@@ -9,7 +9,7 @@ for i=1:nrImages
     I_i = single(rgb2gray(I_i_raw));
     [fs, ds] = vl_sift(I_i);
     [matches, scores] = vl_ubcmatch(d_obj_points, ds);
-    tform = estimateGeometricTransform(obj_points(:,matches(1,:))',fs(1:2,matches(2,:))','projective','Confidence',97);
+    tform = estimateGeometricTransform(fs(1:2,matches(2,:))',obj_points(:,matches(1,:))','projective','Confidence',97);
     outputView = imref2d(size(I_0));
     Ir = imwarp(I_i_raw, tform, 'OutputView', outputView);
     %save it to a folder called results (should exist!)
