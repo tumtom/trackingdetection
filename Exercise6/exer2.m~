@@ -1,0 +1,10 @@
+
+%points are in M. run exer.m first
+nrImages = 44;
+
+for i=1:nrImages
+    I_i = single(rgb2gray(imread(strcat('img_sequence/',num2str(i,'%04d'),'.png'))));
+    [fs, ds] = vl_sift(I_i);
+    [matches, scores] = vl_ubcmatch(d_obj_points, ds) ;
+    tform = estimateGeometricTransform(obj_points(:,matches(1,)),fs(1:2,matches(2,:))','projective');
+end
