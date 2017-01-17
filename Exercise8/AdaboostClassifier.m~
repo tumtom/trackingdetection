@@ -1,0 +1,22 @@
+classdef AdaboostClassifier
+    %UNTITLED Summary of this class goes here
+    %   Detailed explanation goes here
+    
+    properties
+        WeakClassifier;
+        Alpha;
+    end
+    
+    methods
+        function obj=AdaboostClassifier()
+        end
+        
+        function obj=Train(obj,trainingExamples,Labels)
+        end
+        
+        function obj=Test(obj,testingExamples)
+        end
+    end
+    
+end
+
