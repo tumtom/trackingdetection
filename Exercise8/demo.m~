@@ -1,0 +1,40 @@
+% loading the training sets
+
+load('res/data1.mat')
+
+tr_n = size(dat,1);
+weak_learner_n = 500;
+
+tr_set = dat(:,1:2);
+
+tr_labels = dat(:,3);
+tr_labels( (dat(:,3) == 1),1) = 2;
+tr_labels((dat(:,3) == -1),1) = 1;
+
+te_labels = tr_labels;
+
+% Displaying the training sets
+figure;
+%subplot(2,2,1);
+hold on; axis square;
+indices = tr_labels==1;
+plot(tr_set(indices,1),tr_set(indices,2),'b*');
+indices = ~indices;
+plot(tr_set(indices,1),tr_set(indices,2),'r*');
+title('Training set');
+
+% Training error rates
+tr_error = zeros(1,weak_learner_n);
+
+for i=1:weak_learner_n
+	adaboost_model = adaboost(@threshold_tr,@threshold_te,tr_set,tr_labels,i);
+	tr_error(i) = (tr_n-hits_tr)/tr_n;
+end
+
+fi 
+plot(1:weak_learner_n,tr_error);
+axis([1,weak_learner_n,0,1]);
+title('Training Error');
+xlabel('weak classifier number');
+ylabel('error rate');
+grid on;

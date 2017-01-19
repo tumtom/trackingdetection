@@ -1,0 +1,8 @@
+Image = imread()
+I = integral_image(Image);
+%read classifiers
+load('res/Classifiers.mat');
+haarFeat = {}
+for i = 1:size(classifiers,2)
+    haarFeat{i} = HaarFeatures(classifiers(:,i));
+end
