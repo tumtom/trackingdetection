@@ -22,7 +22,7 @@ rect = [
 num_col = (rect(2,1)-rect(1,1))/grid_dist +1;
 num_row = (rect(3,2)-rect(1,2))/grid_dist +1;
 
-grid_p = get_grid( rect );
+grid_p = get_grid( rect, grid_dist );
 
 
 max_x = max_rand;
@@ -39,7 +39,7 @@ for n=1:500
     end
 
     tform = estimateGeometricTransform(rect,rect_rand,'projective','Confidence',97);
-    tform2 = estimateGeometricTransform(rect_rand,rect,'projective','Confidence',97);
+
     warped_grid = [];
 
     for i = 1:size(grid_p)
