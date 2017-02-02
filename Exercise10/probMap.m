@@ -13,7 +13,8 @@ for row = 1:rows
         bin = floor(hue/gap)+1;
         d = hist(bin);
         
-        D(row, col) = (d - minimum)/(maximum-minimum)*255;
+        %D(row, col) = (d - minimum)/(maximum-minimum)*255;
+        D(row, col) = ((d)/(maximum))*255;
     end
 end
 
